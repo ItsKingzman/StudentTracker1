@@ -24,7 +24,6 @@ export class Home extends Component {
       <div>
         <CreateStudentReports onSubmit={this.handleStudentReportSubmit} />
         <FetchStudentData></FetchStudentData>
-        {}
       </div>
     );
   }
