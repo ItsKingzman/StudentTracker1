@@ -1,0 +1,47 @@
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #E01A76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.k-grid {
+    font-size: 14px;
+    border-width: 0;
+    width: 100%;
+}
+
+.k-grid-header {
+    border-style: solid;
+    border-width: 1px;
+    background-color: #f6f7f8;
+}
+
+.k-grid-content {
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+}
+
+    .k-grid-header the,
+    .k-grid-content td {
+        border-width: 0;
+        padding: 8px;
+        line-height: 1.42857143;
+        text-align: left;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+
+.k-grid-header th {
+    font-weight: bold;
+    color: #2e6da4;
+}
