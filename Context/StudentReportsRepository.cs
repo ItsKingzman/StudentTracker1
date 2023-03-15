@@ -1,12 +1,14 @@
-﻿using StudentTracker1.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentTracker1.Context;
+using StudentTracker1.Interfaces;
 
-public class StudentReportsRepository
+public class StudentReportsRepository:IStudentReportRepository
 {
     private readonly StudentReportsContext _dbContext;
 
-    public StudentReportsRepository()
+    public StudentReportsRepository(StudentReportsContext context)
     {
-        _dbContext = new StudentReportsContext();
+        _dbContext = context;
     }
 
     // method to retrieve all student reports

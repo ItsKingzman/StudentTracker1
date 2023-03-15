@@ -1,8 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using StudentTracker1.Interfaces;
+using StudentTracker1.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+var config = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: false)
+        .Build();
+
+builder.Services.AddDbContext<StudentReportsContext>(opts => opts.UseSqlServer(config.GetSection("ConnectionString").Value));
+builder.Services.AddScoped<IStudentReportRepository, StudentReportsRepository>();
 
 var app = builder.Build();
 
@@ -18,9 +30,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapFallbackToFile("index.html"); ;
 

@@ -58,9 +58,6 @@ class CreateStudentReports extends Component<
     };
 
     fetch("api/studentreport", opts).then(async (res) => {
-      // res.json().then((data) => {
-      //   console.log("RESPONSE: ", data);
-      // });
       await populateStudentReports();
     });
   };

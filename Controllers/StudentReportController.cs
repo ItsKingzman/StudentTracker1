@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using StudentTracker1.Context;
+using StudentTracker1.Interfaces;
 
 namespace StudentTracker1.Controllers
 {
@@ -19,9 +20,11 @@ namespace StudentTracker1.Controllers
             };
 
         private readonly ILogger<StudentReportController> _logger;
-        public StudentReportController(ILogger<StudentReportController> logger)
+        private readonly IStudentReportRepository _repo;
+        public StudentReportController(ILogger<StudentReportController> logger, IStudentReportRepository repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
         [HttpGet]
@@ -29,7 +32,7 @@ namespace StudentTracker1.Controllers
         {
             try
             {
-                return list;
+                return _repo.GetAllStudentReports();
             }
             catch (Exception ex)
             {
@@ -63,7 +66,7 @@ namespace StudentTracker1.Controllers
         {
             try
             {
-                list.Add(studentReport);
+                _repo.AddStudentReport(studentReport);
             }
             catch (Exception ex)
             {
