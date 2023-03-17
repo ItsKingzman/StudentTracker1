@@ -4,6 +4,13 @@ import { Input, NumericTextBox } from "@progress/kendo-react-inputs";
 import { records, populateStudentReports } from './DataHelper';
 import "../custom.css";
 
+// This is a form for creating student reports. It has three main components: an Input, a NumericTextBox, and a Submit button.
+// The Input components accept name and course information from the user, while the NumericTextBox component accepts grade input from the user.
+// The handleFieldChange event handler is used to update the component state based on the user’s input.
+// Lastly, the onSubmit event handler is used to prevent a default form submission, and to post the record to an API.
+
+// The CreateStudentReports component is a class component that takes a
+// callback function onSubmit as a prop. The component's state is set to include the fields of name, course, and grade.
 class CreateStudentReports extends Component<
   { onSubmit: (ev: any) => void },
   {
@@ -25,6 +32,8 @@ class CreateStudentReports extends Component<
     };
   }
 
+// The handleFieldChange method updates the component's state
+// with the value of the respective field when it is changed.
   handleFieldChange = (ev) => {
     const { name, value } = ev.target;
     const fields = this.state["fields"];
@@ -33,6 +42,10 @@ class CreateStudentReports extends Component<
     console.log(this.state.fields[name]);
   };
 
+  // The onSubmit method is called when the submit button is pressed.
+  // This method prevents the default event from happening and creates a StudentReport from the component's fields.
+  // If all the fields are not filled in, an alert pops up. If all of the fields are filled in, then the postRecord
+  // function is called.
   onSubmit = (ev) => {
     ev.preventDefault();
     const studentReport: StudentReport = {
@@ -47,6 +60,8 @@ class CreateStudentReports extends Component<
     }
   };
 
+// The postRecord async function makes a POST request to the api/studentreport endpoint.
+// When the request is finished, the populateStudentReports function is called.
   postRecord = async() => {
     const opts = {
       method: "POST",
@@ -62,6 +77,9 @@ class CreateStudentReports extends Component<
     });
   };
 
+// Finally, render returns a form with three inputs and a submit button.
+// The handleFieldChange function is called when the inputs are changed and the onSubmit function is called
+// when the submit button is pressed.
   render() {
     return (
       <div>

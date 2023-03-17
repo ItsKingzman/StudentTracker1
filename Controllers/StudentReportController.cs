@@ -3,6 +3,12 @@ using Serilog;
 using StudentTracker1.Context;
 using StudentTracker1.Interfaces;
 
+
+// This is a controller that has methods to retrieve, add, update and delete student reports.
+// I use ASP.NET Core's ApiController attribute and has methods decorated with HTTP verbs,
+// such as GET, POST, PUT and DELETE. I use Serilog to log errors and an IStudentReportRepository interface
+// to facilitate data retrieval. I also used a List<StudentReport> as a backing store for data.
+
 namespace StudentTracker1.Controllers
 {
     [Route("api/[controller]")]
@@ -27,6 +33,10 @@ namespace StudentTracker1.Controllers
             _repo = repo;
         }
 
+        // This is the controller for the StudentReport model, with all the CRUD action methods set up.    
+        // The [HttpGet] method handles the GET request, returning all student reports. It uses a repository to retrieve the records,
+        // and includes a try/catch block to handle any errors. If there are any errors, the catch block will
+        // log the error and return a status code of 500.
         [HttpGet]
         public IEnumerable<StudentReport> Get()
         {
@@ -43,7 +53,9 @@ namespace StudentTracker1.Controllers
                 return (IEnumerable<StudentReport>)StatusCode(500);
             }
         }
-
+        // The [HttpGet("{name}")] method handles the GET request with a name parameter, returning the student report with that name.
+        // It uses a list of student reports to filter the record, and includes a try/catch block to handle any errors.
+        // If there are any errors, the catch block will log the error and return a status code of 500.
         [HttpGet("{name}")]
         public StudentReport GetStudentReport(string name)
         {
@@ -60,7 +72,9 @@ namespace StudentTracker1.Controllers
                 return (StudentReport)(IEnumerable<StudentReport>)StatusCode(500);
             }
         }
-
+        // The [HttpPost] method handles the POST request, adding a new student report record. It uses a repository to add
+        // the record and includes a try/catch block to handle any errors. If there are any errors, the catch block
+        // will log the error.
         [HttpPost]
         public void AddStudentReport([FromBody] StudentReport studentReport)
         {
@@ -74,7 +88,10 @@ namespace StudentTracker1.Controllers
                 Log.Error(ex, "An error occurred when adding student report");
             }
         }
-
+        // The [HttpPut("{name}")] method handles the PUT request with a name parameter, updating the student
+        // report record with that name. It uses a list of student reports to filter and update the record
+        // and includes a try/catch block to handle any errors. If there are any errors, the catch block
+        // will log the error.
         [HttpPut("{name}")]
         public void UpdateStudentReport(string name, StudentReport studentReport)
         {
@@ -94,7 +111,10 @@ namespace StudentTracker1.Controllers
                 Log.Error(ex, "An error occurred when updating student report for {name}", name);
             }
         }
-
+        // The [HttpDelete("{name}")] method handles the DELETE request with a name parameter, deleting the
+        // student report record with that name. It uses a list of student reports to filter and delete the record,
+        // and includes a try/catch block to handle any errors. If there are any errors,
+        // the catch block will log the error.
         [HttpDelete("{name}")]
         public void DeleteStudentReport(string name)
         {
@@ -112,7 +132,9 @@ namespace StudentTracker1.Controllers
                 Log.Error(ex, "An error occurred when deleting student report for {name}", name);
             }
         }
-
+        // The [HttpGet("StudentsByCourse")] Method handles the GET request with a course parameter, returning all student
+        // report records with that course. It uses a list of student reports to filter the records and then returns
+        // the list.
         [HttpGet("StudentsByCourse")]
         public IEnumerable<StudentReport> GetStudentReportsByCourse(string course)
         {
